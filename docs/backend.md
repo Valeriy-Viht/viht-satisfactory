@@ -1,28 +1,27 @@
-# Backend Сервис
+# Backend Service
 
-Сервис предназначенный для обработки HTTP запросов и WS соединений.
+A service designed to process HTTP requests and WS connections.
 
-## Цель
+## Goal
 
-Предоставить HTTP и Event Driven API для управления данными.
+Provide HTTP and Event Driven API for data management.
 
-## Фунционал
+## Functional
 
-- Предоставляет доступ к хранилищу данных
-- Управляет сессиями, осуществляет проверку аутентификации
-- Держит пул активных WS соеденений и рассылает задачи по микросервисам.
-
-
-## Модули
-
-- `src\Modules\DI` : обеспечивает легковесное управление жизненным циклом объектов и инъекцию зависимостей.
-- `src\Modules\Database`: обеспечивает абстрактный доступ к хранилищу, скрывая конкретную СУБД от клиентских модулей.
-- `src\Modules\Repository`: IRepository обеспечивает абстрактный набор метод скрывающий конкретную реализацию запросов в БД. 
-- `src\Modules\Redis`: обеспечивает доступ к in-memory хранилищу, для модулей `Auth`, `Data`.
-- `src\Modules\Controller`: обеспечивает удобное управление контроллерами HTTP API и их регистрацию в Router.
+- Provides access to the data warehouse
+- Manages sessions, performs authentication verification
+- Keeps a pool of active WS connections and distributes tasks to microservices.
 
 
-## Взаимодействие
+## Modules
 
-Задачи поступают из бекенд-сервиса по TCP сокету и распределяются между дочерними процессами обработчиками через ICP.
+- `src\Modules\DI` : provides lightweight object lifecycle management and dependency injection.
+- `src\Modules\Database`: provides abstract access to storage, hiding a specific DBMS from client modules.
+- `src\Modules\Repository`: IRepository provides an abstract set of methods hiding the specific implementation of queries in the database. 
+- `src\Modules\Redis`: provides access to in-memory storage for modules `Auth`, `Data`.
+- `src\Modules\Controller`: provides convenient management of HTTP API controllers and their registration in the Router.
 
+
+## Interaction
+
+Tasks come from the backend service over a TCP socket and are distributed among child handler processes via ICP.

@@ -1,23 +1,22 @@
 # CPU Workers
 
-Сервис предназначенный для обработки вычислительно-емких задач использующих процессорное время.
+A service designed for processing computationally intensive tasks using processor time.
 
-## Цель
+## Goal
 
-Обеспечить обработку тысяч одновременных запросов на обновление и пересчет разной величины графов с сохранением актуальности данных.
+To ensure the processing of thousands of simultaneous requests for updating and recalculating different sizes of graphs while maintaining the relevance of the data.
 
-## Ключевые архитектурные решения:
+## Key architectural solutions:
 
-Задачи исполняются в модели __кооперативной многозадачности__. Это позволяет:
-- Минимизировать задержки результата пользователям
-- Обеспечить прогназируемое время отклика
-- Ускорять завершение коротких задач (с малым количеством шагов) не блокируя емкие.
+Tasks are performed in the __cooperative multitasking__ model. This allows you to:
+- Minimize result delays to users
+- Provide predictable response time
+- Accelerate the completion of short tasks (with a small number of steps) without blocking long ones.
 
-Обработка происходит по модели __многопроцесорного исполнения__. Это позволяет:
-- Утилизировать все ядра процессора и изолировать обработку независимых запросов.
-- Обеспечить многопоточное исполнение в PHP среде.  
+Processing takes place according to the __multiprocessor execution__ model. This allows you to:
+- Recycle all processor cores and isolate the processing of independent requests.
+- Provide multithreaded execution in a PHP environment.  
 
-## Взаимодействие
+## Interaction
 
-Задачи поступают из бекенд-сервиса по TCP сокету и распределяются между дочерними процессами обработчиками через ICP.
-
+Tasks come from the backend service over a TCP socket and are distributed among child handler processes via ICP.
