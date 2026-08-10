@@ -1,0 +1,9 @@
+
+# Карта документации проекта
+
+### Относительные ссылки (для GitHub/GitLab)
+
+
+- [Cpu Workers](./01-getting-started/README.md)
+- [Backend](./02-guides/routing.md)
+- [Frontend](./03-api/components.md)
