@@ -13,4 +13,9 @@ final class TypeAssert {
         }
     } 
 
+    public static function isSubClassOf(string $child, string $parent) {
+        if (!is_subclass_of($child, $parent)) {
+            throw new InvalidArgumentException("Provided type isn't subclass of other type");
+        }
+    } 
 }
