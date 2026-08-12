@@ -2,6 +2,7 @@
 
 namespace App\Modules\DI;
 
+use App\Utils\TypeAssert;
 use Closure;
 use InvalidArgumentException;
 use LogicException;
@@ -13,7 +14,7 @@ class Container {
     protected $resolving = [];
 
     public function registrate(string $class, Closure $factory) {
-        $this->isClassOrInterfaceExists($class);
+        TypeAssert::exists($class);
 
         if (!is_callable($factory)) {
             throw new InvalidArgumentException("Provided closure isn't callable");
@@ -26,7 +27,7 @@ class Container {
     }
 
     public function get(string $class) {
-        $this->isClassOrInterfaceExists($class);
+        TypeAssert::exists($class);
 
         if ($this->resolving[$class]) {
             throw new LogicException("Circular dependency detected: " .  implode(' => ', array_keys($this->resolving)));
@@ -48,7 +49,7 @@ class Container {
     }
 
     public function singleton(string $class) {
-        $this->isClassOrInterfaceExists($class);
+        TypeAssert::exists($class);
 
         $instance = $this->singletons[$class] ?? null;
         $factory = $this->registrations[$class] ?? null;
@@ -63,11 +64,5 @@ class Container {
         }
 
         return $instance;
-    }
-
-    private function isClassOrInterfaceExists(string $class) {
-        if (!class_exists($class) && !interface_exists($class)) {
-            throw new InvalidArgumentException("Provided class or interface does't exists");
-        }
     }
 }
