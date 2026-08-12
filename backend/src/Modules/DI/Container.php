@@ -1,6 +1,6 @@
 <?php
 
-namespace DI;
+namespace App\Modules\DI;
 
 use Closure;
 use InvalidArgumentException;
