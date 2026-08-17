@@ -2,8 +2,8 @@
 
 namespace App\Modules\Http\Contracts;
 
-use Psr\Http\Message\RequestInterface;
+use Workerman\Protocols\Http\Request;
 
 interface IMiddleware {
-    public function process(RequestInterface $request);
+    public function process(Request $request);
 }

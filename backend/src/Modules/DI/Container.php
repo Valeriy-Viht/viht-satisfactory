@@ -21,7 +21,7 @@ class Container {
         }
 
         if ($this->registrations[$class] !== null) {
-            throw new LogicException("Provided class has already been registered");
+            throw new LogicException("Provided type has already been registered. Duplicated type: " . $class);
         }
         $this->registrations[$class] = $factory;
     }
