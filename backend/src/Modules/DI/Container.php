@@ -36,7 +36,7 @@ class Container {
         $factory = $this->registrations[$class] ?? null;
 
         if ($factory === null) {
-            throw new InvalidArgumentException("No provided registered class in container");
+            throw new InvalidArgumentException("No provided registered type in container. Unknown type: " . $class);
         }
         
         $this->resolving[$class] = true;
@@ -55,7 +55,7 @@ class Container {
         $factory = $this->registrations[$class] ?? null;
 
         if ($factory === null) {
-            throw new InvalidArgumentException("No provided registered class in container");
+            throw new InvalidArgumentException("No provided registered type in container. Unknown type: " . $class);
         }
 
         if ($instance === null) {
