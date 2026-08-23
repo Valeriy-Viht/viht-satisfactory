@@ -54,14 +54,9 @@ class Container {
         TypeAssert::exists($class);
 
         $instance = $this->singletons[$class] ?? null;
-        $factory = $this->registrations[$class] ?? null;
-
-        if ($factory === null) {
-            throw new InvalidArgumentException("No provided registered type in container. Unknown type: " . $class);
-        }
 
         if ($instance === null) {
-            $instance = $factory($this);
+            $instance = $this->get($class);
             $this->singletons[$class] = $instance;
         }
 
