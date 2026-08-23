@@ -39,7 +39,7 @@ class Router {
 
         if (count($middlewares) > 0) {
             foreach ($middlewares as $middleware) {
-                $middleware = $this->container->get($middleware);
+                $middleware = $this->container->singleton($middleware);
                 $request = $middleware->process($request);
             }
         }
