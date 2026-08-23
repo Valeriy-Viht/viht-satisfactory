@@ -13,14 +13,16 @@ class Container {
     protected $singletons = [];
     protected $resolving = [];
 
-    public function registrate(string $class, Closure $factory) {
+    public function registrate(string $class, ?Closure $factory = null) {
         TypeAssert::exists($class);
+
+        $factory = is_callable($factory) ? $factory : fn ($sc) => DependencyResolver::resolve($sc, $class);
 
         if (!is_callable($factory)) {
             throw new InvalidArgumentException("Provided closure isn't callable");
         }
 
-        if ($this->registrations[$class] !== null) {
+        if (isset($this->registrations[$class])) {
             throw new LogicException("Provided type has already been registered. Duplicated type: " . $class);
         }
         $this->registrations[$class] = $factory;
@@ -29,7 +31,7 @@ class Container {
     public function get(string $class) {
         TypeAssert::exists($class);
 
-        if ($this->resolving[$class]) {
+        if (isset($this->resolving[$class])) {
             throw new LogicException("Circular dependency detected: " .  implode(' => ', array_keys($this->resolving)));
         }
 
