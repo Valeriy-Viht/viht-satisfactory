@@ -9,6 +9,7 @@ use App\Modules\Http\Router\RouteBuilder;
 use App\Modules\Http\Router\Router;
 use App\Utils\TypeAssert;
 use InvalidArgumentException;
+use LogicException;
 use ReflectionClass;
 
 class RouteScanner {
@@ -54,8 +55,10 @@ class RouteScanner {
             foreach ($middlewareAttributes as $middlewareAttribute) {
                 $middlewareAttribute = $middlewareAttribute->newInstance();
 
-                $this->container->registrate($middlewareAttribute->class);
-
+                if (!$this->container->has($middlewareAttribute->class)) {
+                    $this->container->registrate($middlewareAttribute->class);
+                }
+                
                 $builder->addMiddleware($middlewareAttribute->class);
             }
         }

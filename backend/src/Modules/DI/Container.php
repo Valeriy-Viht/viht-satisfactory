@@ -62,4 +62,9 @@ class Container {
 
         return $instance;
     }
+
+    public function has(string $class): bool {
+        TypeAssert::exists($class);
+        return isset($registrations[$class]);
+    }
 }
